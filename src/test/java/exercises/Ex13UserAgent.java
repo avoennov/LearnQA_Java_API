@@ -57,9 +57,9 @@ public class Ex13UserAgent {
         );
 
         assertAll("Wrong values: ",
-            () -> assertEquals(platform, platformResp, "The platform is not expected"),
-            () -> assertEquals(browser, browserResp, "The browser is not expected"),
-            () -> assertEquals(device, deviceResp, "The device is not expected")
+            () -> assertEquals(platform, platformResp,  "The platform is not expected for User Agent " + userAgent + "\n"),
+            () -> assertEquals(browser, browserResp, "The browser is not expected for User Agent " + userAgent + "\n"),
+            () -> assertEquals(device, deviceResp, "The device is not expected for User Agent " + userAgent + "\n")
         );
     }
 }
