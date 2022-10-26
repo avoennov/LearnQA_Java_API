@@ -5,6 +5,7 @@ import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -43,6 +44,19 @@ public class ApiCoreRequests {
         return given()
                 .filter(new AllureRestAssured())
                 .body(authData)
+                .post(url)
+                .andReturn();
+    }
+
+    @Step("Make a POST-request without required field")
+    public Response makePostRequestWithoutRequiredField(String url, String fieldName){
+        Map<String,String> userData = new HashMap<>();
+        userData.put(fieldName, null);
+        userData = DataGenerator.getRegistrationData(userData);
+
+        return given()
+                .filter(new AllureRestAssured())
+                .body(userData)
                 .post(url)
                 .andReturn();
     }
