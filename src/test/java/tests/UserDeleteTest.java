@@ -1,16 +1,22 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("Delete User cases")
+@Feature("Delete")
 public class UserDeleteTest extends BaseTestCase {
 
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
@@ -21,6 +27,13 @@ public class UserDeleteTest extends BaseTestCase {
     //-----------[Ex18: Тесты на DELETE]--------------------
     //Удалить пользователя по ID 2. Убедиться, что система не даст вам удалить этого пользователя.
     @Test
+    @Description("[Negative test] Delete user by ID 2. Make sure that the system will not let you delete this user.")
+    @DisplayName("Delete not removable User")
+    @TmsLink("<link to related test case in test management tool>")
+    @Story("Implement deleting Users")
+    @Tags({@Tag("backend"), @Tag("smoke")})
+    @Severity(SeverityLevel.BLOCKER)
+
     public void testDeleteNonRemovableUser() {
         //LOGIN
         Map<String, String> authData = new HashMap<>();
@@ -51,6 +64,13 @@ public class UserDeleteTest extends BaseTestCase {
 
     //Создать пользователя, авторизоваться из-под него, удалить, затем попробовать получить его данные по ID и убедиться, что пользователь действительно удален.
     @Test
+    @Description("[Positive test] Create a user, log in, delete, then try to get his data by ID and make sure that the user is really deleted.")
+    @DisplayName("Delete removable User")
+    @TmsLink("<link to related test case in test management tool>")
+    @Story("Implement deleting Users")
+    @Tags({@Tag("backend"), @Tag("smoke")})
+    @Severity(SeverityLevel.CRITICAL)
+
     public void testDeleteRemovableUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -87,6 +107,13 @@ public class UserDeleteTest extends BaseTestCase {
 
     //Попробовать удалить пользователя, будучи авторизованными другим пользователем
     @Test
+    @Description("[Negative test] Try to delete a user while logged in by another user")
+    @DisplayName("Delete User authorized as another User")
+    @TmsLink("<link to related test case in test management tool>")
+    @Story("Implement deleting Users")
+    @Tags({@Tag("backend"), @Tag("regression")})
+    @Severity(SeverityLevel.BLOCKER)
+
     public void testDeleteUserAuthAsAnotherUser() {
         //GENERATE USER (Main)
         Map<String, String> userData = DataGenerator.getRegistrationData();
