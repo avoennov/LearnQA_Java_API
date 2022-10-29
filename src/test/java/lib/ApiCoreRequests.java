@@ -48,6 +48,15 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
+    @Step("Make a POST-request with cookie")
+    public Response makePostRequestCookie(String url, String cookie){
+        return given()
+                .filter(new AllureRestAssured())
+                .cookie("auth_cookie", cookie)
+                .post(url)
+                .andReturn();
+    }
+
     @Step("Make a POST-request without required field")
     public Response makePostRequestWithoutRequiredField(String url, String fieldName){
         Map<String,String> userData = new HashMap<>();
